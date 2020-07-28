@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-
+import styled from "styled-components";
 
 export const FooterBase = styled.footer`
   background: var(--black);
@@ -10,6 +9,9 @@ export const FooterBase = styled.footer`
   padding-bottom: 32px;
   color: var(--white);
   text-align: center;
+  /* position: absolute;
+  bottom: 0;
+  width: 100%; */
   @media (max-width: 800px) {
     margin-bottom: 50px;
   }
