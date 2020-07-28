@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Menu from "./components/Menu";
+import BannerMain from "./components/BannerMain";
+import Carousel from "./components/Carousel";
 
-function App() {
+import data from "./data/dados_iniciais.json";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ background: "#141414" }}>
+      <Menu />
+
+      <BannerMain
+        videoTitle={data.categorias[0].videos[0].titulo}
+        url={data.categorias[0].videos[0].url}
+        videoDescription={data.categorias[0].videos[0].titulo}
+      />
+
+      <Carousel ignoreFirstVideo category={data.categorias[0]} />
+      <Carousel category={data.categorias[1]} />
+      <Carousel category={data.categorias[2]} />
+      <Carousel category={data.categorias[3]} />
+      <Carousel category={data.categorias[4]} />
+      <Carousel category={data.categorias[5]} />
     </div>
   );
-}
+};
 
 export default App;
