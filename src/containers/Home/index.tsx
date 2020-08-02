@@ -8,7 +8,7 @@ import PageDefault from "../PageDefault";
 const Home = () => {
   return (
     <>
-      <PageDefault buttonContent={"Novo vídeo"} buttonLink="/create/video">
+      <PageDefault buttonContent={"Novo vídeo"} buttonLink="/new/video">
         <BannerMain
           videoTitle={data.categorias[0].videos[0].titulo}
           url={data.categorias[0].videos[0].url}

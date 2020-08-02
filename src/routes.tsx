@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Home from "./containers/Home";
 import NewVideo from "./containers/NewVideo";
 import Page404 from "./containers/Page404";
+import NewCategory from "./containers/NewCategory";
 
 const Routes = () => {
   return (
@@ -11,7 +12,9 @@ const Routes = () => {
       <Switch>
         <Route component={Home} path="/" exact />
 
-        <Route component={NewVideo} path="/create/video" />
+        <Route component={NewVideo} path="/new/video" />
+
+        <Route component={NewCategory} path="/new/category" />
 
         <Route component={Page404} />
       </Switch>

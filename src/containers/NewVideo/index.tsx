@@ -1,10 +1,15 @@
-import React from "react";
-import PageDefault from "../PageDefault";
+import React from 'react';
+import PageDefault from '../PageDefault';
+import { Link } from 'react-router-dom';
+import Form from '../../components/Form';
 
 const NewVideo = () => {
   return (
     <PageDefault buttonContent="&#8249;" buttonLink="/">
-      <div>...Some content here</div>
+      <h1>Cadastro de Video</h1>
+
+      <Form />
+      <Link to="/new/category">Cadastrar Categoria</Link>
     </PageDefault>
   );
 };

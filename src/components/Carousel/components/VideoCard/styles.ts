@@ -23,10 +23,24 @@ export const VideoCardContainer = styled.a`
   align-items: flex-end;
   padding: 16px;
 
+  @keyframes increase {
+    0% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1.25, 1.25);
+    }
+    100% {
+      transform: scale(1.5, 1.5);
+    }
+  }
+
   transition: opacity 0.3s;
   &:hover,
   &:focus {
     opacity: 0.5;
+    animation: increase 1s linear;
+    transform: scale(1.5, 1.5);
   }
 
   &:not(:first-child) {

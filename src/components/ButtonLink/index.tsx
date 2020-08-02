@@ -1,17 +1,12 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 
 interface ButtonProps {
   className: string;
-  href: string;
   children: ReactNode;
 }
 
-const ButtonLink = ({ className = "", href = "/", children }: ButtonProps) => {
-  return (
-    <a className={className} href={href}>
-      {children}
-    </a>
-  );
+const ButtonLink = ({ className = '', children }: ButtonProps) => {
+  return <button className={className}>{children}</button>;
 };
 
 export default ButtonLink;

@@ -9,15 +9,13 @@ const Menu = ({ buttonContent, buttonLink }: any) => {
   return (
     <nav className="menu">
       <Link to="/">
-        <ButtonLink href="/" className="">
+        <ButtonLink className="">
           <img className="logo" src={Logo} alt="logo" />
         </ButtonLink>
       </Link>
 
       <Link to={buttonLink}>
-        <ButtonLink className="button_link" href="/">
-          {buttonContent}
-        </ButtonLink>
+        <ButtonLink className="button_link">{buttonContent}</ButtonLink>
       </Link>
     </nav>
   );
