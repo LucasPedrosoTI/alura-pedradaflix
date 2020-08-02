@@ -32,7 +32,10 @@ const NewCategory = () => {
   };
 
   useEffect(() => {
-    const url = 'http://localhost:8080/categorias';
+    const url =
+      process.env.NODE_ENV === 'production'
+        ? 'https://pedradaflix.herokuapp.com/categorias'
+        : 'http://localhost:8080/categorias';
     fetch(url)
       .then((response) => response.json())
       .then((data: Category[]) => setCategories([...data]));

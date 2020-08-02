@@ -9,7 +9,7 @@ import { categorias as categories } from '../../data/dados_iniciais.json';
 const Form = () => {
   return (
     <>
-      {/* <FormContainer>
+      <FormContainer>
         <input type="text" name="title" id="title" value="" />
         <StyledSelect
           defaultValue="Escolha uma categoria"
@@ -28,7 +28,7 @@ const Form = () => {
           cols={30}
           rows={5}
         ></textarea>
-      </FormContainer> */}
+      </FormContainer>
     </>
   );
 };
