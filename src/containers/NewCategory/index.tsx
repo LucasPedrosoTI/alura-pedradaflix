@@ -3,14 +3,12 @@ import PageDefault from '../PageDefault';
 import ButtonLink from '../../components/ButtonLink';
 import FormField from '../../components/FormField';
 
+import { categories as data } from '../../services/api';
+
 const defaultValues = {
   name: '',
   description: '',
   color: '#ffffff',
-};
-
-type ICategories = {
-  categorias: Category[];
 };
 
 interface Category {
@@ -32,13 +30,9 @@ const NewCategory = () => {
   };
 
   useEffect(() => {
-    const url =
-      process.env.NODE_ENV === 'production'
-        ? 'https://pedradaflix.herokuapp.com/categorias'
-        : 'http://localhost:8080/categorias';
-    fetch(url)
-      .then((response) => response.json())
-      .then((data: Category[]) => setCategories([...data]));
+    data
+      .get('/')
+      .then(({ data }: { data: Category[] }) => setCategories([...data]));
   }, []);
 
   if (!categories || categories.length === 0) {
