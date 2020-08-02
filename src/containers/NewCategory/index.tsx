@@ -15,9 +15,9 @@ type ICategories = {
 
 interface Category {
   id: number;
-  name: string;
-  description: string;
-  color: string;
+  titulo: string;
+  cor: string;
+  link_extra: { text: string; url: string };
 }
 
 const NewCategory = () => {
@@ -77,7 +77,7 @@ const NewCategory = () => {
 
       <ul>
         {categories.map((category) => (
-          <li key={category.id}>{category.name}</li>
+          <li key={category.id}>{category.titulo}</li>
         ))}
       </ul>
     </PageDefault>
