@@ -5,8 +5,10 @@ import FormField from '../../components/FormField';
 
 import useForm from '../../hooks/useForm';
 
-import { Category } from '../../services/api';
+import { Category } from '../../services/category';
 import { ICategory } from '../../types/types';
+import { useQuery } from '../../hooks/useQuery';
+import { useHistory } from 'react-router-dom';
 
 const defaultValues = {
   titulo: '',
@@ -17,11 +19,39 @@ const defaultValues = {
 const NewCategory = () => {
   const { values, setValue } = useForm(defaultValues);
   const [categories, setCategories] = useState<ICategory[]>([] as ICategory[]);
+  const query = useQuery();
+  const history = useHistory();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (
+      values.titulo?.length === 0 ||
+      values.description?.length === 0 ||
+      values.cor?.length === 0
+    )
+      return alert('Todos os campos são obrigatórios');
+
+    Category.createCategory({
+      titulo: values.titulo,
+      cor: values.cor,
+      link_extra: { text: values.description, url: 'http://github.com/' },
+    })
+      .then(() => {
+        alert('Sucesso');
+        history.push('/');
+      })
+      .catch((err) => console.error(err));
+  };
 
   useEffect(() => {
     Category.getCategories().then((res: ICategory[]) =>
       setCategories([...res])
     );
+
+    if (query.get('titulo') !== null) {
+      setValue('titulo', query.get('titulo')!);
+    }
   }, []);
 
   if (!categories || categories.length === 0) {
@@ -34,17 +64,17 @@ const NewCategory = () => {
     <PageDefault buttonContent="&#8249;" buttonLink="/new/video">
       <h1>Cadastro de Categoria</h1>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <FormField
           label="Nome da Categoria: "
-          value={values.titulo}
+          value={values.titulo!}
           onChange={setValue}
-          name="name"
+          name="titulo"
         />
 
         <FormField
           label="Descrição: "
-          value={values.description}
+          value={values.description!}
           onChange={setValue}
           name="description"
           type="textarea"
@@ -52,14 +82,16 @@ const NewCategory = () => {
 
         <FormField
           label="Cor: "
-          value={values.cor}
+          value={values.cor!}
           onChange={setValue}
           type="color"
-          name="color"
+          name="cor"
         />
 
         <div>
-          <ButtonLink className="button_link">Cadastrar</ButtonLink>
+          <ButtonLink type="submit" className="button_link">
+            Cadastrar
+          </ButtonLink>
         </div>
       </form>
 

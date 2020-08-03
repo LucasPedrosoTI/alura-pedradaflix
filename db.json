@@ -40,6 +40,15 @@
         "text": "Formação de Jogos na Alura",
         "url": "https://www.alura.com.br/cursos-online-front-end"
       }
+    },
+    {
+      "titulo": "Cloud Computing",
+      "cor": "#33c7a9",
+      "link_extra": {
+        "text": "Let's talk about cloud!",
+        "url": "http://github.com/"
+      },
+      "id": 6
     }
   ],
   "videos": [
@@ -186,6 +195,30 @@
       "categoriaId": 5,
       "titulo": "Resident Evil 8",
       "url": "https://www.youtube.com/watch?v=JSapXD9vxYA"
+    },
+    {
+      "titulo": "Kubernetes",
+      "url": "https://www.youtube.com/watch?v=o8JO5aNZ82g&feature=youtu.be",
+      "categoriaId": 2,
+      "id": 27
+    },
+    {
+      "titulo": "HACKEARAM O SEU CÉREBRO",
+      "url": "https://www.youtube.com/watch?v=_hobgOFDekg",
+      "categoriaId": 3,
+      "id": 28
+    },
+    {
+      "titulo": "tatuagens com significados ERRADOS // OSHI #104",
+      "url": "https://www.youtube.com/watch?v=dQ8MBx5KRxo",
+      "categoriaId": 4,
+      "id": 29
+    },
+    {
+      "titulo": "AWS Security Hub - Introduction to Foundational Security Best Practices Standard",
+      "url": "https://www.youtube.com/watch?v=xaBIGQX8gog",
+      "categoriaId": 6,
+      "id": 30
     }
   ]
 }

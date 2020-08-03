@@ -11,11 +11,15 @@ interface PageDefault {
   paddingAll?: number;
 }
 
+interface IWrapper {
+  paddingAll?: number | undefined;
+}
+
 const PageDefaultWrapper = styled.div`
   padding-top: 50px;
   padding-right: 5%;
   padding-left: 5%;
-  ${({ paddingAll }: any) => css`
+  ${({ paddingAll }: IWrapper) => css`
     padding: ${paddingAll};
   `}
 `;

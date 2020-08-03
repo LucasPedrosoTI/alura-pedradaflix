@@ -7,6 +7,7 @@ interface InputProps {
   onChange: Function;
   type?: string;
   name: string;
+  suggestions?: string[];
 }
 
 const FormFieldWrapper = styled.div`
@@ -79,6 +80,7 @@ const FormField = ({
   onChange,
   type = 'text',
   name,
+  suggestions = [],
 }: InputProps) => {
   const handleOnChange = (inputKey: string | null, value: string) => {
     if (inputKey === null) {
@@ -91,7 +93,7 @@ const FormField = ({
   const isTypeTextarea = type === 'textarea';
   const tag: any = isTypeTextarea ? 'textarea' : 'input';
   const hasValue = Boolean(value.length);
-  // const hasSuggestions = Boolean(suggestions.length);
+  const hasSuggestions = Boolean(suggestions.length);
 
   return (
     <FormFieldWrapper>
@@ -106,10 +108,24 @@ const FormField = ({
             handleOnChange(target.getAttribute('name'), target.value)
           }
           hasValue={hasValue}
-          // autoComplete={hasSuggestions ? 'off' : 'on'}
-          // list={hasSuggestions ? `suggestionFor_${fieldId}` : undefined}
+          autoComplete={hasSuggestions ? 'off' : 'on'}
+          list={hasSuggestions ? `suggestionFor_${fieldId}` : undefined}
         />
         <Label.Text>{label}</Label.Text>
+        {hasSuggestions && (
+          <datalist id={`suggestionFor_${fieldId}`}>
+            {suggestions?.map((suggestion) => {
+              return (
+                <option
+                  value={suggestion}
+                  key={`suggestionFor_${fieldId}_option${suggestion}`}
+                >
+                  {suggestion}
+                </option>
+              );
+            })}
+          </datalist>
+        )}
       </Label>
     </FormFieldWrapper>
   );

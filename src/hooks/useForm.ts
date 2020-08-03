@@ -1,9 +1,11 @@
 import { useState } from 'react';
 
 interface defaultValues {
-  titulo: string;
-  description: string;
-  cor: string;
+  titulo?: string;
+  description?: string;
+  cor?: string;
+  url?: string;
+  categoria?: string;
 }
 
 export default (defaultValues: defaultValues) => {

@@ -3,7 +3,7 @@ import BannerMain from '../../components/BannerMain';
 import Carousel from '../../components/Carousel';
 
 import { PageDefault, LoadingPageDefault } from '../PageDefault';
-import { Category } from '../../services/api';
+import { Category } from '../../services/category';
 import { ICategoryEmbedVideos } from '../../types/types';
 import Page404 from '../Page404';
 
