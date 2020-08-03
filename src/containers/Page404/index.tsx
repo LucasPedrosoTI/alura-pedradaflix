@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import PageDefault from "../PageDefault";
-import { Page404Base, SadFace, Frame } from "./styles";
+import { PageDefault } from '../PageDefault';
+import { Page404Base, SadFace, Frame } from './styles';
 
-const Page404 = () => {
+const Page404 = ({ error = 'Página não existe!' }: any) => {
   return (
-    <PageDefault buttonContent={"Novo vídeo"} buttonLink="/create/video">
+    <PageDefault buttonContent={'Novo vídeo'} buttonLink="/create/video">
       <Page404Base>
         <div>
           <SadFace>
@@ -13,7 +13,7 @@ const Page404 = () => {
               🙁
             </span>
           </SadFace>
-          <span>Página não existe!</span>
+          <span>{error}</span>
         </div>
 
         <iframe

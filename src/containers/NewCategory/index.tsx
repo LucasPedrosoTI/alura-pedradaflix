@@ -1,52 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import PageDefault from '../PageDefault';
+import { PageDefault, LoadingPageDefault } from '../PageDefault';
 import ButtonLink from '../../components/ButtonLink';
 import FormField from '../../components/FormField';
 
-import { categories as data } from '../../services/api';
+import useForm from '../../hooks/useForm';
+
+import { Category } from '../../services/api';
+import { ICategory } from '../../types/types';
 
 const defaultValues = {
-  name: '',
+  titulo: '',
   description: '',
-  color: '#ffffff',
+  cor: '#ffffff',
 };
 
-interface Category {
-  id: number;
-  titulo: string;
-  cor: string;
-  link_extra: { text: string; url: string };
-}
-
 const NewCategory = () => {
-  const [values, setValues] = useState(defaultValues);
-  const [categories, setCategories] = useState<Category[]>([] as Category[]);
-
-  const setValue = (key: string, value: string) => {
-    setValues({
-      ...values,
-      [key]: value,
-    });
-  };
+  const { values, setValue } = useForm(defaultValues);
+  const [categories, setCategories] = useState<ICategory[]>([] as ICategory[]);
 
   useEffect(() => {
-    data
-      .get('/')
-      .then(({ data }: { data: Category[] }) => setCategories([...data]));
+    Category.getCategories().then((res: ICategory[]) =>
+      setCategories([...res])
+    );
   }, []);
 
   if (!categories || categories.length === 0) {
-    return null;
+    return (
+      <LoadingPageDefault buttonContent="&#8249;" buttonLink="/new/video" />
+    );
   }
 
   return (
-    <PageDefault buttonContent="&#8249;" buttonLink="/">
+    <PageDefault buttonContent="&#8249;" buttonLink="/new/video">
       <h1>Cadastro de Categoria</h1>
 
       <form>
         <FormField
           label="Nome da Categoria: "
-          value={values.name}
+          value={values.titulo}
           onChange={setValue}
           name="name"
         />
@@ -61,7 +52,7 @@ const NewCategory = () => {
 
         <FormField
           label="Cor: "
-          value={values.color}
+          value={values.cor}
           onChange={setValue}
           type="color"
           name="color"

@@ -1,20 +1,14 @@
-import React from "react";
-import { VideoCardGroupContainer, Title, ExtraLink } from "./styles";
-import VideoCard from "./components/VideoCard";
+import React from 'react';
+import { VideoCardGroupContainer, Title, ExtraLink } from './styles';
+import VideoCard from './components/VideoCard';
 
-import Slider from "./components/Slider";
-import { SliderItem } from "./components/Slider/styles";
+import Slider from './components/Slider';
+import { SliderItem } from './components/Slider/styles';
+import { ICategoryEmbedVideos } from '../../types/types';
 
 interface CarouselProps {
   ignoreFirstVideo?: Boolean;
-  category: Category | undefined | null;
-}
-
-interface Category {
-  titulo: string;
-  cor: string;
-  link_extra: { text: string; url: string };
-  videos: { titulo: string; url: string }[];
+  category: ICategoryEmbedVideos;
 }
 
 function Carousel({ ignoreFirstVideo = false, category }: CarouselProps) {
@@ -28,7 +22,7 @@ function Carousel({ ignoreFirstVideo = false, category }: CarouselProps) {
     <VideoCardGroupContainer>
       {categoryTitle && (
         <>
-          <Title style={{ backgroundColor: categoryColor || "red" }}>
+          <Title style={{ backgroundColor: categoryColor || 'red' }}>
             {categoryTitle}
           </Title>
           {categoryExtraLink && (
@@ -39,7 +33,7 @@ function Carousel({ ignoreFirstVideo = false, category }: CarouselProps) {
         </>
       )}
       <Slider>
-        {videos.map((video, index) => {
+        {videos?.map((video, index) => {
           if (ignoreFirstVideo && index === 0) {
             return null;
           }

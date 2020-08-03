@@ -1,26 +1,64 @@
-import React from "react";
-import BannerMain from "../../components/BannerMain";
-import Carousel from "../../components/Carousel";
+import React, { useEffect, useState } from 'react';
+import BannerMain from '../../components/BannerMain';
+import Carousel from '../../components/Carousel';
 
-import data from "../../data/dados_iniciais.json";
-import PageDefault from "../PageDefault";
+import { PageDefault, LoadingPageDefault } from '../PageDefault';
+import { Category } from '../../services/api';
+import { ICategoryEmbedVideos } from '../../types/types';
+import Page404 from '../Page404';
 
 const Home = () => {
+  const [error, setError] = useState('');
+  const [categories, setCategories] = useState<ICategoryEmbedVideos[]>(
+    [] as ICategoryEmbedVideos[]
+  );
+
+  useEffect(() => {
+    Category.getCategoriesWithVideos()
+      .then((result: ICategoryEmbedVideos[]) => {
+        setCategories([...result]);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  }, []);
+
+  if (error) {
+    return <Page404 error={error} />;
+  }
+
+  if (categories.length === 0) {
+    return (
+      <LoadingPageDefault
+        buttonContent={'Novo vídeo'}
+        buttonLink="/new/video"
+      />
+    );
+  }
+
   return (
     <>
-      <PageDefault buttonContent={"Novo vídeo"} buttonLink="/new/video">
-        <BannerMain
-          videoTitle={data.categorias[0].videos[0].titulo}
-          url={data.categorias[0].videos[0].url}
-          videoDescription={data.categorias[0].videos[0].titulo}
-        />
+      <PageDefault
+        paddingAll={0}
+        buttonContent={'Novo vídeo'}
+        buttonLink="/new/video"
+      >
+        {categories.map((category, index) => {
+          if (index === 0) {
+            return (
+              <div key={category.id}>
+                <BannerMain
+                  videoTitle={categories[0].videos[0].titulo!}
+                  url={categories[0].videos[0].url}
+                  videoDescription={categories[0].videos[0].titulo}
+                />
+                <Carousel ignoreFirstVideo category={categories[0]} />
+              </div>
+            );
+          }
 
-        <Carousel ignoreFirstVideo category={data.categorias[0]} />
-        <Carousel category={data.categorias[1]} />
-        <Carousel category={data.categorias[2]} />
-        <Carousel category={data.categorias[3]} />
-        <Carousel category={data.categorias[4]} />
-        <Carousel category={data.categorias[5]} />
+          return <Carousel key={category.id} category={category} />;
+        })}
       </PageDefault>
     </>
   );
