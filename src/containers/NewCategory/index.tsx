@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import { PageDefault, LoadingPageDefault } from '../PageDefault';
 import ButtonLink from '../../components/ButtonLink';
 import FormField from '../../components/FormField';
@@ -8,7 +9,6 @@ import useForm from '../../hooks/useForm';
 import { Category } from '../../services/category';
 import { ICategory } from '../../types/types';
 import { useQuery } from '../../hooks/useQuery';
-import { useHistory } from 'react-router-dom';
 
 const defaultValues = {
   titulo: '',
@@ -29,8 +29,9 @@ const NewCategory = () => {
       values.titulo?.length === 0 ||
       values.description?.length === 0 ||
       values.cor?.length === 0
-    )
+    ) {
       return alert('Todos os campos são obrigatórios');
+    }
 
     Category.createCategory({
       titulo: values.titulo,
@@ -44,15 +45,23 @@ const NewCategory = () => {
       .catch((err) => console.error(err));
   };
 
-  useEffect(() => {
+  const fetchCategories = useCallback(() => {
     Category.getCategories().then((res: ICategory[]) =>
       setCategories([...res])
     );
+  }, []);
 
+  const updateValue = useCallback(() => {
     if (query.get('titulo') !== null) {
       setValue('titulo', query.get('titulo')!);
     }
-  }, []);
+  }, [query, setValue]);
+
+  useEffect(() => {
+    fetchCategories();
+    updateValue();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchCategories]);
 
   if (!categories || categories.length === 0) {
     return (

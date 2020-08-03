@@ -6,5 +6,6 @@
     "browserslist",
     "pedradaflix",
     "youtu"
-  ]
+  ],
+  "eslint.enable": false
 }
