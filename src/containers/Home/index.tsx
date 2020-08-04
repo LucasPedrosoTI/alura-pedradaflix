@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import BannerMain from '../../components/BannerMain';
 import Carousel from '../../components/Carousel';
 
@@ -13,7 +13,7 @@ const Home = () => {
     [] as ICategoryEmbedVideos[]
   );
 
-  useEffect(() => {
+  const fetchCategories = useCallback(() => {
     Category.getCategoriesWithVideos()
       .then((result: ICategoryEmbedVideos[]) => {
         setCategories([...result]);
@@ -22,6 +22,12 @@ const Home = () => {
         setError(error.message);
       });
   }, []);
+
+  useEffect(() => {
+    fetchCategories();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchCategories]);
 
   if (error) {
     return <Page404 error={error} />;
